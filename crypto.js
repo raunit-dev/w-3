@@ -1,6 +1,16 @@
-const crypto = require('crypto');
-const fs = require('fs');
+import { createHash } from 'crypto';
 
-const input = "596138";
-const answer = crypto.createHash('sha256').update(input).digest('hex');
-console.log(answer);
+function findHashWithPrefix(prefix) {
+    let number = 0;
+    while (true) {
+        const hash = createHash('sha256').update(number.toString()).digest('hex');
+        if (hash.startsWith(prefix)) {
+            return { input: number.toString(), hash };
+        }
+        number++;
+}
+}
+const result = findHashWithPrefix('00000');
+console.log('Input:', result.input);
+console.log('Hash:', result.hash);
+
